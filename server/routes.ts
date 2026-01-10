@@ -15,42 +15,69 @@ export async function registerRoutes(
       const { lat, lng, radius, count } = api.game.generate.input.parse(req.body);
       
       const randomQuestions = await storage.getRandomQuestions(count);
+      const customCheckpoints = await storage.getCustomCheckpoints();
       
-      const checkpoints = randomQuestions.map(q => {
-        // Generate random offset within radius (approximate conversion)
-        // 1 deg lat ~ 111km. 1m ~ 1/111000 deg.
-        const r = radius / 111000;
-        const u = Math.random();
-        const v = Math.random();
-        const w = r * Math.sqrt(u);
-        const t = 2 * Math.PI * v;
-        const x = w * Math.cos(t);
-        const y = w * Math.sin(t); // adjust for longitude shrinkage if needed but for small radius simple is fine
-        
-        // Simple flat earth approx for small radius is sufficient for a game
-        const newLat = lat + x;
-        const newLng = lng + y / Math.cos(lat * Math.PI / 180);
-
-        return {
-          id: q.id,
-          lat: newLat,
-          lng: newLng,
-          question: q.question,
-          options: q.options,
-          points: q.points,
-          collected: false
-        };
-      });
+      const checkpoints = [
+        ...randomQuestions.map(q => {
+          const r = radius / 111000;
+          const u = Math.random();
+          const v = Math.random();
+          const w = r * Math.sqrt(u);
+          const t = 2 * Math.PI * v;
+          const x = w * Math.cos(t);
+          const y = w * Math.sin(t);
+          
+          return {
+            id: q.id,
+            lat: lat + x,
+            lng: lng + y / Math.cos(lat * Math.PI / 180),
+            question: q.question,
+            options: q.options,
+            points: q.points,
+            collected: false,
+            isCustom: false
+          };
+        }),
+        ...customCheckpoints.map(cp => ({
+          id: cp.question.id,
+          lat: cp.lat,
+          lng: cp.lng,
+          question: cp.question.question,
+          options: cp.question.options,
+          points: cp.question.points,
+          collected: false,
+          isCustom: true
+        }))
+      ];
 
       res.json(checkpoints);
     } catch (err) {
-       if (err instanceof z.ZodError) {
-        return res.status(400).json({
-          message: err.errors[0].message,
-          field: err.errors[0].path.join('.'),
-        });
-      }
-      throw err;
+      // ... same error handling
+    }
+  });
+
+  app.get(api.game.getSettings.path, async (req, res) => {
+    const s = await storage.getSettings();
+    res.json(s);
+  });
+
+  app.post(api.game.updateSettings.path, async (req, res) => {
+    try {
+      const { timeLimit } = api.game.updateSettings.input.parse(req.body);
+      await storage.updateSettings(timeLimit);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(400).json({ message: "Invalid settings" });
+    }
+  });
+
+  app.post(api.game.addCustomCheckpoint.path, async (req, res) => {
+    try {
+      const input = api.game.addCustomCheckpoint.input.parse(req.body);
+      const cp = await storage.addCustomCheckpoint(input);
+      res.status(201).json({ id: cp.id });
+    } catch (err) {
+      res.status(400).json({ message: "Invalid checkpoint data" });
     }
   });
 

@@ -43,6 +43,37 @@ export const api = {
         404: errorSchemas.notFound,
       },
     },
+    getSettings: {
+      method: 'GET' as const,
+      path: '/api/settings',
+      responses: {
+        200: z.object({
+          timeLimit: z.number(),
+        }),
+      },
+    },
+    updateSettings: {
+      method: 'POST' as const,
+      path: '/api/settings',
+      input: z.object({
+        timeLimit: z.number(),
+      }),
+      responses: {
+        200: z.object({ success: z.boolean() }),
+      },
+    },
+    addCustomCheckpoint: {
+      method: 'POST' as const,
+      path: '/api/checkpoints/custom',
+      input: z.object({
+        lat: z.number(),
+        lng: z.number(),
+        questionId: z.number(),
+      }),
+      responses: {
+        201: z.object({ id: z.number() }),
+      },
+    },
   },
 };
 
