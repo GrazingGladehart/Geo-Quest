@@ -301,12 +301,16 @@ export function ARView({ checkpoints, userLat, userLng, onCheckpointTap, onClose
         <div className="bg-black/50 backdrop-blur-sm rounded-2xl px-6 py-3">
           <div className="flex items-center gap-4 text-white text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-purple-500" />
-              <span>Nearby ({">"}20m)</span>
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+              <span>Distant (Orb)</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span>In Range ({"<"}20m)</span>
+              <div className="w-3 h-3 rounded-full bg-emerald-600" />
+              <span>In Range (Avatar)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-blue-500" />
+              <span>Collected (Checkmark)</span>
             </div>
           </div>
         </div>
