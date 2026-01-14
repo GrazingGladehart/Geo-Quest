@@ -49,16 +49,18 @@ export function ARView({ checkpoints, userLat, userLng, onCheckpointTap, onClose
       (DeviceOrientationEvent as any).requestPermission()
         .then((response: string) => {
           if (response === "granted") {
-            window.addEventListener("deviceorientation", handleOrientation as any);
+            window.addEventListener("deviceorientation", handleOrientation as any, true);
           }
         })
-        .catch(console.error);
+        .catch(err => {
+          console.error("Orientation permission error:", err);
+        });
     } else {
-      window.addEventListener("deviceorientation", handleOrientation as any);
+      window.addEventListener("deviceorientation", handleOrientation as any, true);
     }
 
     return () => {
-      window.removeEventListener("deviceorientation", handleOrientation as any);
+      window.removeEventListener("deviceorientation", handleOrientation as any, true);
     };
   }, []);
 
@@ -66,7 +68,8 @@ export function ARView({ checkpoints, userLat, userLng, onCheckpointTap, onClose
     setCameraPermission("granted");
   }, []);
 
-  const handleUserMediaError = useCallback(() => {
+  const handleUserMediaError = useCallback((error: any) => {
+    console.error("Webcam error:", error);
     setCameraPermission("denied");
   }, []);
 

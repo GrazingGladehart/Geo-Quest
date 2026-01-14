@@ -31,11 +31,18 @@ export default function Game() {
     queryKey: ["/api/settings"],
   });
 
-  // Derived state: sorted checkpoints by distance
+  // Derived state: sorted and deduplicated checkpoints by distance
   const sortedCheckpoints = useMemo(() => {
     if (!lat || !lng || checkpoints.length === 0) return [];
     
-    return checkpoints.map(cp => {
+    // Deduplicate by ID
+    const uniqueCheckpointsMap = new Map();
+    checkpoints.forEach(cp => {
+      uniqueCheckpointsMap.set(cp.id, cp);
+    });
+    const uniqueCheckpoints = Array.from(uniqueCheckpointsMap.values());
+    
+    return uniqueCheckpoints.map(cp => {
       const dist = getDistance(
         { latitude: lat, longitude: lng },
         { latitude: cp.lat, longitude: cp.lng }
@@ -333,7 +340,7 @@ export default function Game() {
           <div className="p-6 relative z-10 text-center">
             <Radar />
             <h2 className="text-xl font-bold font-display mb-1">Scanning Sector...</h2>
-            <p className="text-indigo-100 text-sm mb-4">Walk towards checkpoints to unlock questions.</p>
+            <p className="text-indigo-100 text-sm mb-4">Find and collect checkpoints in AR mode.</p>
             
             <Button
               onClick={() => setShowARView(true)}
@@ -347,26 +354,21 @@ export default function Game() {
           </div>
         </Card>
 
-        {/* Checkpoints List */}
+        {/* Checkpoints Stats */}
         <div className="space-y-4">
           <div className="flex items-center justify-between px-1">
-            <h3 className="font-bold text-slate-400 text-sm uppercase tracking-wider">Nearby Targets</h3>
+            <h3 className="font-bold text-slate-400 text-sm uppercase tracking-wider">Mission Progress</h3>
             <Badge variant="secondary" className="bg-white text-slate-500 shadow-sm">
               <MapPin className="w-3 h-3 mr-1" />
-              Accuracy: High
+              Scanning
             </Badge>
           </div>
 
-          <AnimatePresence>
-            {sortedCheckpoints.map((cp, idx) => (
-              <CheckpointCard 
-                key={cp.id} 
-                checkpoint={cp} 
-                distance={cp.distance} 
-                index={idx} 
-              />
-            ))}
-          </AnimatePresence>
+          <Card className="p-4 bg-white/50 backdrop-blur-sm border-dashed border-2">
+            <p className="text-center text-sm text-muted-foreground italic">
+              Checkpoints are only visible in AR view. Use the button above to start collecting!
+            </p>
+          </Card>
         </div>
       </main>
 
