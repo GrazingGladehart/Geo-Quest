@@ -2,7 +2,15 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 import { motion, AnimatePresence } from "framer-motion";
 import { getRhumbLineBearing, getDistance } from "geolib";
-import { MapPin, Target, X, Camera, CameraOff } from "lucide-react";
+import { TreeDeciduous, Dog, Bird, Leaf, Target, X, Camera, CameraOff, MapPin } from "lucide-react";
+
+// Nature avatars for close-range checkpoints
+const NATURE_AVATARS = [TreeDeciduous, Dog, Bird, Leaf];
+
+const getAvatar = (id: number) => {
+  const Icon = NATURE_AVATARS[id % NATURE_AVATARS.length];
+  return <Icon className="w-8 h-8 text-white" />;
+};
 import { Button } from "@/components/ui/button";
 import type { Checkpoint } from "@shared/schema";
 
@@ -170,30 +178,55 @@ export function ARView({ checkpoints, userLat, userLng, onCheckpointTap, onClose
                   <motion.div
                     animate={{
                       y: [0, -10, 0],
-                      rotate: [0, 5, -5, 0],
+                      scale: pos.distance < 20 ? [1, 1.1, 1] : [1, 0.9, 1],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 3,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
                     className="relative"
                   >
-                    <div
-                      className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
-                        pos.distance < 20
-                          ? "bg-gradient-to-br from-green-400 to-green-600 ring-4 ring-green-300/50"
-                          : "bg-gradient-to-br from-purple-500 to-indigo-600"
-                      }`}
-                    >
-                      <Target className="w-8 h-8 text-white" />
-                    </div>
+                    <AnimatePresence mode="wait">
+                      {pos.distance < 20 ? (
+                        <motion.div
+                          key="avatar"
+                          initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                          exit={{ opacity: 0, scale: 0.5, rotate: 20 }}
+                          className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-green-700 flex items-center justify-center shadow-2xl ring-4 ring-green-300/50"
+                        >
+                          {getAvatar(cp.id)}
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="orb"
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ 
+                            opacity: 1, 
+                            scale: 1,
+                            boxShadow: [
+                              "0 0 20px rgba(74, 222, 128, 0.4)",
+                              "0 0 40px rgba(74, 222, 128, 0.8)",
+                              "0 0 20px rgba(74, 222, 128, 0.4)"
+                            ]
+                          }}
+                          exit={{ opacity: 0, scale: 0.5 }}
+                          transition={{
+                            boxShadow: { duration: 2, repeat: Infinity }
+                          }}
+                          className="w-12 h-12 rounded-full bg-green-400/80 backdrop-blur-sm border-2 border-green-300 flex items-center justify-center"
+                        >
+                          <div className="w-4 h-4 rounded-full bg-white blur-[2px] animate-pulse" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {pos.distance < 20 && (
                       <motion.div
-                        className="absolute -inset-2 rounded-full border-2 border-green-400"
-                        animate={{ scale: [1, 1.3, 1], opacity: [1, 0, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="absolute -inset-4 rounded-full border-4 border-green-400/30"
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
                       />
                     )}
                   </motion.div>
