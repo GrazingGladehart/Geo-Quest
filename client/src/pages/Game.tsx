@@ -107,7 +107,8 @@ export default function Game() {
     setActiveQuestion(checkpoint);
   };
 
-  // Watch for proximity triggers
+  // Watch for proximity triggers - REMOVED automatic popup
+  /* 
   useEffect(() => {
     if (!gameActive || !lat || !lng || activeQuestion) return;
 
@@ -119,6 +120,7 @@ export default function Game() {
       setActiveQuestion(closest);
     }
   }, [lat, lng, sortedCheckpoints, gameActive, activeQuestion]);
+  */
 
   // Handle Answer Verification
   const handleVerify = async (answer: string): Promise<boolean> => {

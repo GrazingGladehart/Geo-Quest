@@ -29,7 +29,8 @@ export async function registerRoutes(
           let finalLat = lat, finalLng = lng;
           
           while (attempts < 50) {
-            const r = (minDistanceFromCenter + Math.random() * (radius - minDistanceFromCenter)) / 111000;
+            // Ensure radius is scaled correctly and use square root for uniform distribution within circle
+            const r = (minDistanceFromCenter + Math.sqrt(Math.random()) * (radius - minDistanceFromCenter)) / 111000;
             const t = 2 * Math.PI * Math.random();
             x = r * Math.cos(t);
             y = r * Math.sin(t) / Math.cos(lat * Math.PI / 180);
@@ -37,11 +38,12 @@ export async function registerRoutes(
             finalLat = lat + x;
             finalLng = lng + y;
 
+            const distFromStart = getDistance({latitude: lat, longitude: lng}, {latitude: finalLat, longitude: finalLng});
             const tooCloseToOthers = generatedCoords.some(c => 
               getDistance({latitude: finalLat, longitude: finalLng}, {latitude: c.lat, longitude: c.lng}) < minDistanceBetweenCheckpoints
             );
 
-            if (!tooCloseToOthers) break;
+            if (distFromStart >= minDistanceFromCenter && distFromStart <= radius && !tooCloseToOthers) break;
             attempts++;
           }
           

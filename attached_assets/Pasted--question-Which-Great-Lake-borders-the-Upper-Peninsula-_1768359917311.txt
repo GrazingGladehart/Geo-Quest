@@ -1,0 +1,542 @@
+[
+  {
+    "question": "Which Great Lake borders the Upper Peninsula of Michigan along its northern coast?",
+    "choices": ["Lake Superior", "Lake Michigan", "Lake Huron", "Lake Erie"],
+    "answer": "Lake Superior"
+  },
+  {
+    "question": "The Upper Peninsula’s forests that store carbon and provide wildlife habitat are an example of which environmental concept?",
+    "choices": ["Point-source pollution", "Nature-based climate solutions", "Urban heat islands", "Overfishing"],
+    "answer": "Nature-based climate solutions"
+  },
+  {
+    "question": "What type of rock makes up much of the ancient bedrock exposed in Michigan’s Upper Peninsula?",
+    "choices": ["Granite from recent volcanoes", "Sedimentary rock from coral reefs", "Very old Precambrian rock of the Canadian Shield", "Sandstone formed last century"],
+    "answer": "Very old Precambrian rock of the Canadian Shield"
+  },
+  {
+    "question": "Which process most directly shaped the cliffs and rocky shorelines of Lake Superior in the Upper Peninsula?",
+    "choices": ["Tsunamis", "Glacial erosion and retreat", "Volcanic ash deposits last decade", "Meteor impacts last year"],
+    "answer": "Glacial erosion and retreat"
+  },
+  {
+    "question": "In ecosystems like the forests of the Keweenaw Peninsula, which trophic level includes wolves and bobcats?",
+    "choices": ["Producers", "Primary consumers", "Secondary and tertiary consumers", "Decomposers"],
+    "answer": "Secondary and tertiary consumers"
+  },
+  {
+    "question": "What is the primary source of energy for almost all ecosystems, including those in the Upper Peninsula?",
+    "choices": ["Wind", "Sunlight", "Geothermal vents", "Tides"],
+    "answer": "Sunlight"
+  },
+  {
+    "question": "Which term describes the variety of species, genes, and ecosystems in an area like the Upper Peninsula’s forests and wetlands?",
+    "choices": ["Homogeneity", "Biodiversity", "Erosion", "Acidity"],
+    "answer": "Biodiversity"
+  },
+  {
+    "question": "Which of the following is a renewable energy resource that could be developed in windy parts of the Upper Peninsula?",
+    "choices": ["Coal", "Natural gas", "Wind power", "Petroleum"],
+    "answer": "Wind power"
+  },
+  {
+    "question": "Which gas is the main contributor to human-caused climate change?",
+    "choices": ["Oxygen", "Carbon dioxide", "Nitrogen", "Argon"],
+    "answer": "Carbon dioxide"
+  },
+  {
+    "question": "The movement of water from Lake Superior into the atmosphere by evaporation is part of which cycle?",
+    "choices": ["Carbon cycle", "Nitrogen cycle", "Water cycle", "Rock cycle"],
+    "answer": "Water cycle"
+  },
+  {
+    "question": "Which of these organisms is a producer in a Lake Superior nearshore food web?",
+    "choices": ["Lake trout", "Algae", "Mayfly nymph", "Bald eagle"],
+    "answer": "Algae"
+  },
+  {
+    "question": "In a forest food chain, which term describes an organism that eats only plants?",
+    "choices": ["Carnivore", "Herbivore", "Omnivore", "Decomposer"],
+    "answer": "Herbivore"
+  },
+  {
+    "question": "What is the term for a region drained by a river and its tributaries, such as streams flowing into Lake Superior?",
+    "choices": ["Aquifer", "Watershed", "Delta", "Estuary"],
+    "answer": "Watershed"
+  },
+  {
+    "question": "Phosphorus and nitrogen from fertilizers can wash into streams and lakes. What is one possible effect?",
+    "choices": ["Increased biodiversity of large mammals", "Harmful algal blooms", "Increased rock hardness", "More earthquakes"],
+    "answer": "Harmful algal blooms"
+  },
+  {
+    "question": "Which best describes an invasive species in the Great Lakes?",
+    "choices": ["A native bird that migrates each year", "A plant or animal brought from another region that harms local ecosystems", "Any large predator", "Any species that lives in water"],
+    "answer": "A plant or animal brought from another region that harms local ecosystems"
+  },
+  {
+    "question": "What term describes the long-term average weather patterns in an area like the Upper Peninsula?",
+    "choices": ["Forecast", "Climate", "Front", "Storm"],
+    "answer": "Climate"
+  },
+  {
+    "question": "Which of these is an example of point-source water pollution?",
+    "choices": ["Runoff from many farm fields", "Oil from many cars on roads", "Discharge pipe from a factory", "Fertilizer blown by the wind"],
+    "answer": "Discharge pipe from a factory"
+  },
+  {
+    "question": "When trees in a northern forest are removed over a large area, which of these is a likely result?",
+    "choices": ["Increased soil erosion", "Decreased runoff", "More shade on the ground", "Instant rock formation"],
+    "answer": "Increased soil erosion"
+  },
+  {
+    "question": "Which part of the atmosphere contains the air humans breathe and most of Earth’s weather?",
+    "choices": ["Thermosphere", "Stratosphere", "Troposphere", "Exosphere"],
+    "answer": "Troposphere"
+  },
+  {
+    "question": "Which process is responsible for plants removing carbon dioxide from the atmosphere?",
+    "choices": ["Respiration", "Photosynthesis", "Decomposition", "Evaporation"],
+    "answer": "Photosynthesis"
+  },
+  {
+    "question": "Which of these describes a keystone species?",
+    "choices": ["A species with no predators", "A species that many other species depend on for ecosystem stability", "A species that lives only in water", "Any endangered species"],
+    "answer": "A species that many other species depend on for ecosystem stability"
+  },
+  {
+    "question": "In Lake Superior, whitefish and lake trout eggs laid on rocky reefs are vulnerable to which human activity mentioned for the Keweenaw region?",
+    "choices": ["Tourism", "Tailings and stamp sand from mining covering spawning habitat", "Wind power development", "Tree planting"],
+    "answer": "Tailings and stamp sand from mining covering spawning habitat"
+  },
+  {
+    "question": "Which environmental benefit can protected forests in the Keweenaw Heartlands provide?",
+    "choices": ["Increased plastic production", "Carbon storage and wildlife corridors", "More fossil fuel extraction", "More light pollution"],
+    "answer": "Carbon storage and wildlife corridors"
+  },
+  {
+    "question": "The process by which glaciers once moved across Michigan’s Upper Peninsula and scraped and shaped the land is called what?",
+    "choices": ["Condensation", "Glacial erosion", "Subduction", "Volcanic uplift"],
+    "answer": "Glacial erosion"
+  },
+  {
+    "question": "What is the basic unit of life in all living organisms?",
+    "choices": ["Atom", "Cell", "Molecule", "Organ"],
+    "answer": "Cell"
+  },
+  {
+    "question": "Which organelle is found in plant cells but not in animal cells and allows plants to perform photosynthesis?",
+    "choices": ["Nucleus", "Mitochondrion", "Chloroplast", "Ribosome"],
+    "answer": "Chloroplast"
+  },
+  {
+    "question": "Which of the following is NOT a characteristic of living things?",
+    "choices": ["They grow and develop", "They reproduce", "They respond to their environment", "They are always visible to the naked eye"],
+    "answer": "They are always visible to the naked eye"
+  },
+  {
+    "question": "Which term describes the role and position a species has in its environment, including what it eats and where it lives?",
+    "choices": ["Habitat", "Niche", "Biome", "Community"],
+    "answer": "Niche"
+  },
+  {
+    "question": "Which biome best describes much of the Upper Peninsula’s interior forest?",
+    "choices": ["Tropical rainforest", "Taiga/boreal forest", "Desert", "Savanna"],
+    "answer": "Taiga/boreal forest"
+  },
+  {
+    "question": "Which is an abiotic factor in a Lake Superior shoreline ecosystem?",
+    "choices": ["Trout", "Algae", "Water temperature", "Zooplankton"],
+    "answer": "Water temperature"
+  },
+  {
+    "question": "An example of mutualism would be:",
+    "choices": ["A wolf eating a deer", "Ticks feeding on a moose", "Bees pollinating flowers and receiving nectar", "Mold decomposing a log"],
+    "answer": "Bees pollinating flowers and receiving nectar"
+  },
+  {
+    "question": "Which process describes liquid water changing to water vapor?",
+    "choices": ["Condensation", "Evaporation", "Freezing", "Sublimation"],
+    "answer": "Evaporation"
+  },
+  {
+    "question": "Clouds form when water vapor in the air cools and changes into liquid droplets. What is this process called?",
+    "choices": ["Condensation", "Transpiration", "Precipitation", "Runoff"],
+    "answer": "Condensation"
+  },
+  {
+    "question": "Which human action best helps maintain water quality in a watershed?",
+    "choices": ["Dumping oil in storm drains", "Maintaining vegetated buffer strips along streams", "Removing all plants from shorelines", "Paving wetlands"],
+    "answer": "Maintaining vegetated buffer strips along streams"
+  },
+  {
+    "question": "What is the primary cause of seasons on Earth?",
+    "choices": ["Earth’s distance from the Sun", "The tilt of Earth’s axis", "Changes in the Sun’s size", "Earth’s shape"],
+    "answer": "The tilt of Earth’s axis"
+  },
+  {
+    "question": "Which statement best describes Earth’s rotation?",
+    "choices": ["Earth orbits the Sun once a year", "Earth spins once on its axis approximately every 24 hours", "Earth moves once through the galaxy each week", "Earth does not move"],
+    "answer": "Earth spins once on its axis approximately every 24 hours"
+  },
+  {
+    "question": "Which phase of the Moon occurs when the Moon is between the Earth and the Sun and the side facing Earth is not lit?",
+    "choices": ["Full moon", "New moon", "First quarter", "Third quarter"],
+    "answer": "New moon"
+  },
+  {
+    "question": "What is the force that pulls objects toward Earth’s center?",
+    "choices": ["Magnetism", "Friction", "Gravity", "Electricity"],
+    "answer": "Gravity"
+  },
+  {
+    "question": "Which layer of Earth is composed mostly of liquid iron and nickel and creates Earth’s magnetic field?",
+    "choices": ["Crust", "Mantle", "Outer core", "Inner core"],
+    "answer": "Outer core"
+  },
+  {
+    "question": "Which evidence supports the idea that glaciers once covered much of Michigan?",
+    "choices": ["Desert sand dunes only", "Volcanic lava flows everywhere", "Glacial moraines, eskers, and scratched bedrock", "Coral reefs on mountain tops formed last year"],
+    "answer": "Glacial moraines, eskers, and scratched bedrock"
+  },
+  {
+    "question": "What is the relatively thin, rocky outer layer of Earth called?",
+    "choices": ["Core", "Mantle", "Crust", "Asthenosphere"],
+    "answer": "Crust"
+  },
+  {
+    "question": "Which type of rock forms from cooled and solidified magma or lava?",
+    "choices": ["Igneous rock", "Sedimentary rock", "Metamorphic rock", "Organic rock"],
+    "answer": "Igneous rock"
+  },
+  {
+    "question": "Copper deposits in the Keweenaw Peninsula formed mainly because of ancient:",
+    "choices": ["River floods last century", "Volcanic activity and mineral-rich fluids in Precambrian rocks", "Recent meteor impacts", "Human construction"],
+    "answer": "Volcanic activity and mineral-rich fluids in Precambrian rocks"
+  },
+  {
+    "question": "Which type of weathering occurs when water freezes and thaws in cracks in Upper Peninsula rocks?",
+    "choices": ["Chemical weathering by acid", "Biological weathering by roots", "Physical freeze–thaw weathering", "Metamorphic weathering"],
+    "answer": "Physical freeze–thaw weathering"
+  },
+  {
+    "question": "Air pollution units that focus on health impacts in Michigan schools are most directly related to which environmental factor?",
+    "choices": ["Sound waves", "Air quality", "Soil composition", "Plate tectonics"],
+    "answer": "Air quality"
+  },
+  {
+    "question": "Which is an example of a nonrenewable energy resource?",
+    "choices": ["Solar energy", "Wind energy", "Coal", "Hydroelectric power"],
+    "answer": "Coal"
+  },
+  {
+    "question": "Which of the following best describes energy conservation?",
+    "choices": ["Using more electricity during peak hours", "Leaving lights on all day", "Using energy more efficiently and reducing waste", "Burning more fossil fuels"],
+    "answer": "Using energy more efficiently and reducing waste"
+  },
+  {
+    "question": "Which greenhouse gas is also produced by driving gasoline-powered cars?",
+    "choices": ["Oxygen", "Carbon dioxide", "Helium", "Neon"],
+    "answer": "Carbon dioxide"
+  },
+  {
+    "question": "Which of these actions would most reduce a school’s carbon footprint?",
+    "choices": ["Using more single-use plastic bottles", "Improving building insulation and reducing energy use", "Paving over green spaces", "Leaving computers on all night"],
+    "answer": "Improving building insulation and reducing energy use"
+  },
+  {
+    "question": "The term \"carbon footprint\" refers to:",
+    "choices": ["The weight of carbon atoms in rocks", "The total amount of greenhouse gases produced by human activities", "Footprints in charcoal dust", "The size of a forest"],
+    "answer": "The total amount of greenhouse gases produced by human activities"
+  },
+  {
+    "question": "Which organisms break down dead plants and animals, returning nutrients to the soil?",
+    "choices": ["Producers", "Decomposers", "Primary consumers", "Secondary consumers"],
+    "answer": "Decomposers"
+  },
+  {
+    "question": "Which term describes a group of organisms of the same species living in the same area?",
+    "choices": ["Ecosystem", "Population", "Biome", "Biosphere"],
+    "answer": "Population"
+  },
+  {
+    "question": "Which best describes an ecosystem?",
+    "choices": ["Only the plants in an area", "Only the animals in an area", "A community of organisms and their physical environment", "Only the abiotic factors in an area"],
+    "answer": "A community of organisms and their physical environment"
+  },
+  {
+    "question": "A food web is more realistic than a simple food chain because:",
+    "choices": ["Organisms usually have only one food source", "Organisms often have multiple feeding relationships", "Energy does not flow through ecosystems", "Producers eat consumers"],
+    "answer": "Organisms often have multiple feeding relationships"
+  },
+  {
+    "question": "Which of these is a limiting factor that could reduce the size of a deer population in a northern forest?",
+    "choices": ["Unlimited food", "Plentiful water", "Harsh winter and lack of shelter", "No predators"],
+    "answer": "Harsh winter and lack of shelter"
+  },
+  {
+    "question": "Which of the following is a physical change?",
+    "choices": ["Burning wood", "Rusting iron", "Ice melting into liquid water", "Baking a cake"],
+    "answer": "Ice melting into liquid water"
+  },
+  {
+    "question": "Which of the following is a chemical change?",
+    "choices": ["Water boiling", "Ice breaking", "Iron rusting", "Sugar dissolving"],
+    "answer": "Iron rusting"
+  },
+  {
+    "question": "Which statement about atoms is true?",
+    "choices": ["Atoms are the smallest particles of an element that retain its properties", "Atoms can be seen with the naked eye", "Atoms do not contain smaller particles", "All atoms are identical"],
+    "answer": "Atoms are the smallest particles of an element that retain its properties"
+  },
+  {
+    "question": "The atomic number of an element tells you the number of:",
+    "choices": ["Protons", "Neutrons", "Electrons in any atom", "Molecules"],
+    "answer": "Protons"
+  },
+  {
+    "question": "Which subatomic particles are found in the nucleus of an atom?",
+    "choices": ["Protons and neutrons", "Electrons and neutrons", "Electrons only", "Protons and electrons"],
+    "answer": "Protons and neutrons"
+  },
+  {
+    "question": "Which state of matter has a definite shape and volume?",
+    "choices": ["Solid", "Liquid", "Gas", "Plasma"],
+    "answer": "Solid"
+  },
+  {
+    "question": "Which state of matter takes the shape of its container but has a definite volume?",
+    "choices": ["Solid", "Liquid", "Gas", "Plasma"],
+    "answer": "Liquid"
+  },
+  {
+    "question": "Which law states that matter is not created or destroyed in a chemical reaction?",
+    "choices": ["Law of Gravity", "Law of Conservation of Mass", "Law of Superposition", "Law of Motion"],
+    "answer": "Law of Conservation of Mass"
+  },
+  {
+    "question": "What is the basic unit of heredity that carries information for a trait?",
+    "choices": ["Chromosome", "Gene", "Protein", "Enzyme"],
+    "answer": "Gene"
+  },
+  {
+    "question": "Which term describes different forms of the same gene, such as for eye color?",
+    "choices": ["Alleles", "Loci", "Genotypes", "Phenotypes"],
+    "answer": "Alleles"
+  },
+  {
+    "question": "An organism’s physical appearance, such as fur color or height, is called its:",
+    "choices": ["Genotype", "Phenotype", "Chromotype", "Allele type"],
+    "answer": "Phenotype"
+  },
+  {
+    "question": "In a Punnett square, a capital letter usually represents a:",
+    "choices": ["Recessive allele", "Dominant allele", "Mutation", "Chromosome"],
+    "answer": "Dominant allele"
+  },
+  {
+    "question": "Which process produces gametes (sex cells) with half the usual number of chromosomes?",
+    "choices": ["Mitosis", "Meiosis", "Binary fission", "Budding"],
+    "answer": "Meiosis"
+  },
+  {
+    "question": "Natural selection is best described as:",
+    "choices": ["Random changes in climate", "Humans choosing which animals breed", "Individuals with advantageous traits surviving and reproducing more", "All individuals in a population living forever"],
+    "answer": "Individuals with advantageous traits surviving and reproducing more"
+  },
+  {
+    "question": "Over many generations, natural selection can lead to:",
+    "choices": ["Extinction or evolution of new species", "Instant climate change", "No change in populations", "Longer days"],
+    "answer": "Extinction or evolution of new species"
+  },
+  {
+    "question": "Which type of reproduction results in offspring that are genetically identical to the parent?",
+    "choices": ["Sexual reproduction", "Asexual reproduction", "Cross-pollination", "Fertilization"],
+    "answer": "Asexual reproduction"
+  },
+  {
+    "question": "Which body system is primarily responsible for transporting oxygen and nutrients throughout the body?",
+    "choices": ["Digestive system", "Respiratory system", "Circulatory system", "Nervous system"],
+    "answer": "Circulatory system"
+  },
+  {
+    "question": "Which organ is part of the respiratory system and is essential for gas exchange?",
+    "choices": ["Heart", "Lungs", "Stomach", "Kidneys"],
+    "answer": "Lungs"
+  },
+  {
+    "question": "Which system coordinates the body’s response to internal and external stimuli using electrical signals?",
+    "choices": ["Digestive system", "Nervous system", "Skeletal system", "Excretory system"],
+    "answer": "Nervous system"
+  },
+  {
+    "question": "Which human activity most directly leads to increased acid rain affecting forests and lakes?",
+    "choices": ["Planting trees", "Burning fossil fuels that release sulfur and nitrogen oxides", "Using solar panels", "Riding bicycles"],
+    "answer": "Burning fossil fuels that release sulfur and nitrogen oxides"
+  },
+  {
+    "question": "Which is a likely impact of climate change on the Great Lakes region?",
+    "choices": ["No change in air temperature", "More consistent ice cover and colder winters only", "Changes in lake ice cover, water levels, and species ranges", "Instant formation of new mountains"],
+    "answer": "Changes in lake ice cover, water levels, and species ranges"
+  },
+  {
+    "question": "Which Great Lake contains the largest volume of freshwater and borders the Keweenaw Peninsula?",
+    "choices": ["Lake Erie", "Lake Michigan", "Lake Superior", "Lake Ontario"],
+    "answer": "Lake Superior"
+  },
+  {
+    "question": "Wetlands near Lake Superior help improve water quality by:",
+    "choices": ["Adding more plastic to the water", "Filtering pollutants and trapping sediments", "Increasing acid rain", "Blocking all water flow"],
+    "answer": "Filtering pollutants and trapping sediments"
+  },
+  {
+    "question": "Which term describes water that soaks into the ground and fills spaces in soil and rock?",
+    "choices": ["Runoff", "Groundwater", "Condensation", "Transpiration"],
+    "answer": "Groundwater"
+  },
+  {
+    "question": "Which of the following best describes an aquifer?",
+    "choices": ["A cloud type", "A rock layer that stores and transmits groundwater", "An underwater volcano", "A lake made of lava"],
+    "answer": "A rock layer that stores and transmits groundwater"
+  },
+  {
+    "question": "A septic system that is not working properly near a lake can cause which problem?",
+    "choices": ["Cleaner water automatically", "Increased nutrient pollution in the lake", "More glaciers", "Less bacteria in soil"],
+    "answer": "Increased nutrient pollution in the lake"
+  },
+  {
+    "question": "Which practice would best protect a cold-water trout stream in the Upper Peninsula?",
+    "choices": ["Removing all streamside trees", "Allowing erosion from dirt roads into the stream", "Maintaining forested buffers along the stream", "Dumping yard waste directly into the water"],
+    "answer": "Maintaining forested buffers along the stream"
+  },
+  {
+    "question": "What is the primary energy source that drives the water cycle?",
+    "choices": ["Earth’s core", "The Sun", "The Moon", "Earth’s rotation"],
+    "answer": "The Sun"
+  },
+  {
+    "question": "Which of these waves requires a medium (like air or water) to travel?",
+    "choices": ["Light waves", "Radio waves", "Sound waves", "Microwaves"],
+    "answer": "Sound waves"
+  },
+  {
+    "question": "Which type of energy is stored due to an object’s position or height?",
+    "choices": ["Kinetic energy", "Thermal energy", "Potential energy", "Sound energy"],
+    "answer": "Potential energy"
+  },
+  {
+    "question": "When a sled speeds up going down a snowy hill, which energy transformation mainly occurs?",
+    "choices": ["Kinetic to potential", "Potential to kinetic", "Sound to light", "Chemical to nuclear"],
+    "answer": "Potential to kinetic"
+  },
+  {
+    "question": "Which of these is an example of kinetic energy in the Upper Peninsula?",
+    "choices": ["A rock perched on a cliff", "Water flowing over a waterfall", "A book resting on a desk", "Snow piled on the ground"],
+    "answer": "Water flowing over a waterfall"
+  },
+  {
+    "question": "Which simple machine is a ramp that helps lift objects with less force?",
+    "choices": ["Lever", "Inclined plane", "Pulley", "Wheel and axle"],
+    "answer": "Inclined plane"
+  },
+  {
+    "question": "If you push against a wall that does not move, how much work (in physics terms) is done on the wall?",
+    "choices": ["A lot of work", "Some work", "No work", "Infinite work"],
+    "answer": "No work"
+  },
+  {
+    "question": "Which unit is used to measure force in the metric system?",
+    "choices": ["Joule", "Newton", "Watt", "Meter"],
+    "answer": "Newton"
+  },
+  {
+    "question": "Which unit is used to measure energy?",
+    "choices": ["Newton", "Joule", "Meter", "Kilogram"],
+    "answer": "Joule"
+  },
+  {
+    "question": "Which of the following best describes velocity?",
+    "choices": ["Speed in a given direction", "Distance only", "Acceleration only", "Mass times volume"],
+    "answer": "Speed in a given direction"
+  },
+  {
+    "question": "Which of Newton’s laws explains why a hockey puck on smooth ice keeps sliding until friction or another force acts on it?",
+    "choices": ["First law (inertia)", "Second law (F = ma)", "Third law (action–reaction)", "Law of gravity"],
+    "answer": "First law (inertia)"
+  },
+  {
+    "question": "According to Newton’s third law, when a fish pushes water backward with its fins, the water:",
+    "choices": ["Does nothing", "Pulls the fish backward equally", "Pushes the fish forward with an equal and opposite force", "Stops moving"],
+    "answer": "Pushes the fish forward with an equal and opposite force"
+  },
+  {
+    "question": "Which device is designed to convert mechanical energy from moving air into electrical energy?",
+    "choices": ["Solar panel", "Wind turbine", "Battery", "Transformer"],
+    "answer": "Wind turbine"
+  },
+  {
+    "question": "Which human activity in the Keweenaw has created new underground habitats where bats can hibernate?",
+    "choices": ["Urban sprawl", "Abandoned copper mine shafts", "Highway construction", "Wind farms"],
+    "answer": "Abandoned copper mine shafts"
+  },
+  {
+    "question": "Which statement about fossils is true?",
+    "choices": ["All fossils are living organisms", "Fossils are the preserved remains or traces of ancient life", "Fossils form only in igneous rock", "Fossils are always made of ice"],
+    "answer": "Fossils are the preserved remains or traces of ancient life"
+  },
+  {
+    "question": "The Law of Superposition states that in undisturbed sedimentary rock layers:",
+    "choices": ["Older layers are on top", "Younger layers are on top of older layers", "All layers are the same age", "Rocks cannot hold fossils"],
+    "answer": "Younger layers are on top of older layers"
+  },
+  {
+    "question": "Which of these best explains why Lake Superior moderates temperatures along its shorelines?",
+    "choices": ["Water heats and cools more slowly than land", "Water heats and cools faster than land", "Water has no effect on temperature", "Water absorbs no solar energy"],
+    "answer": "Water heats and cools more slowly than land"
+  },
+  {
+    "question": "Which of the following helps protect biodiversity in the Keweenaw Peninsula?",
+    "choices": ["Clearing all forests for development", "Protecting large, connected areas of forest and shoreline", "Draining wetlands", "Overharvesting wildlife"],
+    "answer": "Protecting large, connected areas of forest and shoreline"
+  },
+  {
+    "question": "Which term describes the gradual increase in average global temperatures near Earth’s surface?",
+    "choices": ["Ozone depletion", "Global warming", "El Niño", "Tidal change"],
+    "answer": "Global warming"
+  },
+  {
+    "question": "Which international issue is most directly addressed by reducing greenhouse gas emissions?",
+    "choices": ["Earthquakes", "Volcanic eruptions", "Climate change", "Plate tectonics"],
+    "answer": "Climate change"
+  },
+  {
+    "question": "What is one advantage of using local data, such as Michigan’s MEECS climate lessons, in environmental science classes?",
+    "choices": ["It makes science unrelated to students’ lives", "It helps students understand how global issues affect their own region", "It only teaches about space exploration", "It replaces all national standards"],
+    "answer": "It helps students understand how global issues affect their own region"
+  },
+  {
+    "question": "Why are aquatic macroinvertebrates like mayfly nymphs useful indicators of stream health?",
+    "choices": ["They never live in water", "Different species have different tolerances to pollution", "They only live in polluted water", "They cause most water pollution"],
+    "answer": "Different species have different tolerances to pollution"
+  },
+  {
+    "question": "Which is the most sustainable way to manage a working forest in the Upper Peninsula?",
+    "choices": ["Clear-cutting all trees and not replanting", "Balancing timber harvest with wildlife habitat and water protection", "Removing all wildlife", "Paving the forest floor"],
+    "answer": "Balancing timber harvest with wildlife habitat and water protection"
+  },
+  {
+    "question": "Which of these best describes a hypothesis?",
+    "choices": ["A proven fact", "An educated guess that can be tested", "Random data", "A list of results"],
+    "answer": "An educated guess that can be tested"
+  },
+  {
+    "question": "In a controlled experiment testing how light affects plant growth, which is the independent variable?",
+    "choices": ["Amount of light", "Height of plant", "Number of leaves", "Mass of soil"],
+    "answer": "Amount of light"
+  },
+  {
+    "question": "Why is it important to repeat scientific experiments?",
+    "choices": ["To change the hypothesis each time", "To see if results are reliable and consistent", "To make the experiment longer", "To avoid analyzing data"],
+    "answer": "To see if results are reliable and consistent"
+  }
+]
