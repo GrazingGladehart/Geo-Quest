@@ -33,6 +33,7 @@ export const userStats = pgTable("user_stats", {
   longestStreak: integer("longest_streak").notNull().default(0),
   lastActivityDate: text("last_activity_date"),
   huntsCompleted: integer("hunts_completed").notNull().default(0),
+  streakFreezes: integer("streak_freezes").notNull().default(0),
   pointsHistory: jsonb("points_history").$type<{date: string, points: number}[]>().notNull().default([]),
 });
 

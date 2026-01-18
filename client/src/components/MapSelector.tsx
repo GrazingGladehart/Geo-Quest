@@ -39,7 +39,8 @@ interface MapSelectorProps {
   lng: number;
   onLocationSelect: (lat: number, lng: number) => void;
   radius?: number;
-  existingCheckpoints?: { lat: number; lng: number; id: number }[];
+  existingCheckpoints?: { lat: number; lng: number; id: number; isCustom?: boolean; isRoving?: boolean }[];
+  onCheckpointMove?: (id: number, lat: number, lng: number) => void;
   playerLocation?: { lat: number; lng: number };
 }
 
@@ -74,7 +75,7 @@ function LocationMarker({ lat, lng, onLocationSelect }: { lat: number; lng: numb
   );
 }
 
-export function MapSelector({ lat, lng, onLocationSelect, radius, existingCheckpoints, playerLocation }: MapSelectorProps) {
+export function MapSelector({ lat, lng, onLocationSelect, radius, existingCheckpoints, playerLocation, onCheckpointMove }: MapSelectorProps) {
   return (
     <div className="h-[300px] w-full rounded-lg overflow-hidden border-2 border-muted relative z-0">
       <MapContainer 
@@ -100,12 +101,23 @@ export function MapSelector({ lat, lng, onLocationSelect, radius, existingCheckp
         {/* Existing checkpoints */}
         {existingCheckpoints?.map((cp) => (
           <Marker 
-            key={`cp-${cp.id}`} 
+            key={`cp-${cp.id}-${cp.isCustom ? 'custom' : 'random'}`} 
             position={[cp.lat, cp.lng]} 
-            icon={CheckpointIcon}
+            icon={cp.isRoving ? PlayerIcon : CheckpointIcon}
+            draggable={true}
+            eventHandlers={{
+              dragend: (e) => {
+                if (onCheckpointMove) {
+                  const pos = e.target.getLatLng();
+                  onCheckpointMove(cp.id, pos.lat, pos.lng);
+                }
+              }
+            }}
           >
             <Popup>
-              <div className="text-sm font-medium">Custom Checkpoint</div>
+              <div className="text-sm font-medium">
+                {cp.isRoving ? 'Roving' : cp.isCustom ? 'Custom' : 'Random'} Checkpoint
+              </div>
               <div className="text-xs text-muted-foreground">ID: {cp.id}</div>
             </Popup>
           </Marker>

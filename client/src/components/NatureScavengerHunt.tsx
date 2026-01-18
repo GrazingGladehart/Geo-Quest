@@ -20,21 +20,37 @@ export function NatureScavengerHunt({ onComplete }: { onComplete: () => void }) 
     setDailyItems(shuffled.slice(0, 3));
   }, []);
 
+  const handleNotFound = (itemId: number) => {
+    setDailyItems(prev => {
+      const remaining = natureItems.filter(ni => !prev.find(pi => pi.id === ni.id) && !completedItems.includes(ni.id));
+      if (remaining.length === 0) return prev;
+      const newItem = remaining[Math.floor(Math.random() * remaining.length)];
+      return prev.map(item => item.id === itemId ? newItem : item);
+    });
+    setSelectedItem(null);
+  };
+
   const verifyMutation = useMutation({
     mutationFn: async ({ itemName, image }: { itemName: string; image: string }) => {
       const res = await apiRequest("POST", "/api/verify-photo", { itemName, image });
       return res.json();
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.verified) {
-        setCompletedItems(prev => [...prev, selectedItem.id]);
+        const newCompleted = [...completedItems, selectedItem.id];
+        setCompletedItems(newCompleted);
         queryClient.invalidateQueries({ queryKey: ["/api/stats"] });
         toast({
           title: "Item Verified!",
           description: data.feedback,
         });
         
-        if (completedItems.length + 1 === dailyItems.length) {
+        if (newCompleted.length >= 3) {
+          await apiRequest("POST", "/api/stats/complete-hunt", {});
+          toast({
+            title: "Daily Goal Reached!",
+            description: "You've found 3 items! Daily streak increased!",
+          });
           onComplete();
         }
       } else {
@@ -140,12 +156,22 @@ export function NatureScavengerHunt({ onComplete }: { onComplete: () => void }) 
                 <>
                   <Upload className="w-10 h-10 text-gray-400 mb-2" />
                   <p className="text-sm text-gray-500 mb-4">Take a photo of the {selectedItem.name} in its natural habitat</p>
-                  <label className="cursor-pointer">
-                    <Button asChild>
-                      <span>Choose Photo</span>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label className="cursor-pointer w-full">
+                      <Button asChild className="w-full">
+                        <span>Choose Photo</span>
+                      </Button>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+                    </label>
+                    <Button 
+                      variant="outline" 
+                      className="w-full text-red-600 border-red-100 hover:bg-red-50"
+                      onClick={() => handleNotFound(selectedItem.id)}
+                    >
+                      <X size={16} className="mr-2" />
+                      Not Found
                     </Button>
-                    <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
-                  </label>
+                  </div>
                 </>
               )}
             </div>

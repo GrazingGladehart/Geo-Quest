@@ -103,6 +103,24 @@ export default function Game() {
     setActiveQuestion(checkpoint);
   };
 
+  const completeHuntMutation = useMutation({
+    mutationFn: () => apiRequest("POST", "/api/stats/complete-hunt", {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/stats"] });
+      toast({
+        title: "Quest Completed!",
+        description: "You've finished your mission and earned a Streak Freeze!",
+      });
+    }
+  });
+
+  useEffect(() => {
+    if (checkpoints.length > 0 && checkpoints.every(cp => cp.collected) && !gameOver) {
+      completeHuntMutation.mutate();
+      setGameOver(true);
+    }
+  }, [checkpoints, gameOver]);
+
   // Handle Answer Verification
   const handleVerify = async (answer: string): Promise<boolean> => {
     if (!activeQuestion) return false;

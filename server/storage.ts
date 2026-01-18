@@ -111,7 +111,7 @@ export class DatabaseStorage implements IStorage {
     const stats = await this.getUserStats();
     const today = new Date().toISOString().split('T')[0];
     
-    let history = [...stats.pointsHistory];
+    let history = [...(stats.pointsHistory as {date: string, points: number}[])];
     const todayIndex = history.findIndex(h => h.date === today);
     
     if (todayIndex >= 0) {
@@ -120,7 +120,6 @@ export class DatabaseStorage implements IStorage {
       history.push({ date: today, points });
     }
 
-    // Keep only last 30 days
     if (history.length > 30) history = history.slice(-30);
 
     const [updated] = await db.update(userStats)

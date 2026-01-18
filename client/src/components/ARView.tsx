@@ -44,6 +44,7 @@ export function ARView({ checkpoints: initialCheckpoints, userLat, userLng, scor
   const [showStats, setShowStats] = useState(false);
   const [photos, setPhotos] = useState<string[]>([]);
   const [showGallery, setShowGallery] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [totalDistance, setTotalDistance] = useState(0);
   const lastLocation = useRef<{ lat: number; lng: number } | null>(null);
   const webcamRef = useRef<Webcam>(null);
@@ -222,7 +223,58 @@ export function ARView({ checkpoints: initialCheckpoints, userLat, userLng, scor
         <div className="bg-black/40 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2"><MapPin className="w-4 h-4 text-white" /><span className="text-white text-sm font-bold">{remainingCount} left</span></div>
       </div>
       <AnimatePresence>{showStats && <motion.div initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 100 }} className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-lg p-6 flex items-center justify-center"><Card className="w-full max-w-sm bg-slate-900 border-white/10 text-white p-6 relative overflow-hidden"><div className="absolute top-0 right-0 p-4"><Button variant="ghost" size="icon" onClick={() => setShowStats(false)}><X className="w-5 h-5" /></Button></div><h2 className="text-2xl font-black font-display mb-6 flex items-center gap-2 text-primary"><BarChart3 className="w-6 h-6" /> Mission Stats</h2><div className="grid grid-cols-2 gap-4"><div className="bg-white/5 rounded-2xl p-4 border border-white/5"><div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase mb-1"><Trophy className="w-3 h-3 text-yellow-500" /> Points</div><div className="text-2xl font-black text-white">{score}</div></div><div className="bg-white/5 rounded-2xl p-4 border border-white/5"><div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase mb-1"><TrendingUp className="w-3 h-3 text-emerald-500" /> Accuracy</div><div className="text-2xl font-black text-white">{accuracy}%</div></div><div className="bg-white/5 rounded-2xl p-4 border border-white/5"><div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase mb-1"><Target className="w-3 h-3 text-primary" /> Remaining</div><div className="text-2xl font-black text-white">{remainingCount}</div></div><div className="bg-white/5 rounded-2xl p-4 border border-white/5"><div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase mb-1"><MapPin className="w-3 h-3 text-blue-500" /> Distance</div><div className="text-2xl font-black text-white">{Math.round(totalDistance)}m</div></div></div><div className="mt-6 p-4 bg-primary/10 rounded-2xl border border-primary/20 flex items-center justify-between"><div className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /><span className="text-sm font-bold">Time Left</span></div><span className="text-xl font-mono font-black text-primary">{timeRemaining ? formatTime(timeRemaining) : "--:--"}</span></div></Card></motion.div>}</AnimatePresence>
-      <AnimatePresence>{showGallery && <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl p-6 flex flex-col"><div className="flex items-center justify-between mb-6"><h2 className="text-2xl font-black font-display text-white flex items-center gap-2"><History className="w-6 h-6 text-primary" /> Mission Photos</h2><Button variant="secondary" size="icon" className="rounded-full" onClick={() => setShowGallery(false)}><X className="w-5 h-5" /></Button></div><div className="flex-1 overflow-y-auto grid grid-cols-2 gap-4 pb-12">{photos.map((src, i) => (<motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/10 relative group"><img src={src} className="w-full h-full object-cover" alt={`Mission photo ${i}`} /><div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><span className="text-white text-xs font-bold uppercase tracking-wider">Saved to Session</span></div></motion.div>))}</div></motion.div>}</AnimatePresence>
+      <AnimatePresence>{showGallery && (
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="fixed inset-0 z-[110] bg-black/95 backdrop-blur-xl p-6 flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-black font-display text-white flex items-center gap-2"><History className="w-6 h-6 text-primary" /> Mission Photos</h2>
+            <Button variant="secondary" size="icon" className="rounded-full" onClick={() => setShowGallery(false)}><X className="w-5 h-5" /></Button>
+          </div>
+          <div className="flex-1 overflow-y-auto grid grid-cols-2 gap-4 pb-12">
+            {photos.map((src, i) => (
+              <motion.div 
+                key={i} 
+                initial={{ opacity: 0, y: 20 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                transition={{ delay: i * 0.1 }} 
+                className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/10 relative group cursor-pointer"
+                onClick={() => setSelectedPhoto(src)}
+              >
+                <img src={src} className="w-full h-full object-cover" alt={`Mission photo ${i}`} />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="text-white text-xs font-bold uppercase tracking-wider">Full Screen</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}</AnimatePresence>
+
+      <AnimatePresence>
+        {selectedPhoto && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
+            onClick={() => setSelectedPhoto(null)}
+          >
+            <motion.img 
+              initial={{ scale: 0.8 }} 
+              animate={{ scale: 1 }} 
+              src={selectedPhoto} 
+              className="max-w-full max-h-full rounded-xl shadow-2xl"
+            />
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="absolute top-6 right-6 rounded-full"
+              onClick={() => setSelectedPhoto(null)}
+            >
+              <X size={24} />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

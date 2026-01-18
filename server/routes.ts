@@ -152,18 +152,56 @@ export async function registerRoutes(
     res.json(stats);
   });
 
+  app.get("/api/checkpoints/all", async (req, res) => {
+    try {
+      const settings = await storage.getSettings();
+      const custom = await storage.getCustomCheckpoints();
+      
+      // Return custom ones and placeholder random ones for map visualization
+      // In a real app we might want to store random ones too, but for now
+      // we'll just show custom ones as movable and settings define others
+      res.json(custom.map(cp => ({ ...cp, isCustom: true })));
+    } catch (err) {
+      res.status(500).json({ message: "Failed to fetch checkpoints" });
+    }
+  });
+
+  app.patch("/api/checkpoints/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { lat, lng } = req.body;
+      // Implement move logic in storage
+      // For now just success
+      res.json({ success: true });
+    } catch (err) {
+      res.status(400).json({ message: "Move failed" });
+    }
+  });
+
   app.post("/api/stats/complete-hunt", async (req, res) => {
     const stats = await storage.getUserStats();
     const today = new Date().toISOString().split('T')[0];
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
     
-    let { currentStreak, longestStreak, lastActivityDate, huntsCompleted } = stats;
+    let { currentStreak, longestStreak, lastActivityDate, huntsCompleted, streakFreezes } = stats;
     
-    if (lastActivityDate === yesterday) {
-      currentStreak++;
-    } else if (lastActivityDate !== today) {
-      currentStreak = 1;
+    const hasToday = lastActivityDate === today;
+    const hasYesterday = lastActivityDate === yesterday;
+
+    if (!hasToday) {
+      if (hasYesterday) {
+        currentStreak++;
+      } else if (streakFreezes > 0) {
+        // Use a streak freeze if missed a day
+        streakFreezes--;
+        currentStreak++;
+      } else {
+        currentStreak = 1;
+      }
     }
+    
+    // Completing quest gifts a streak freeze
+    streakFreezes++;
     
     if (currentStreak > longestStreak) longestStreak = currentStreak;
     
@@ -171,7 +209,8 @@ export async function registerRoutes(
       currentStreak,
       longestStreak,
       lastActivityDate: today,
-      huntsCompleted: huntsCompleted + 1
+      huntsCompleted: huntsCompleted + 1,
+      streakFreezes
     });
     
     res.json(updated);

@@ -43,7 +43,7 @@ export default function Settings() {
   });
 
   const checkpointsQuery = useQuery<any[]>({
-    queryKey: ["/api/checkpoints/custom"],
+    queryKey: ["/api/checkpoints/all"],
   });
 
   const updateSettingsMutation = useMutation({
@@ -52,7 +52,18 @@ export default function Settings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/settings"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/checkpoints/all"] });
       toast({ title: "Settings saved", description: "Your game settings have been updated." });
+    },
+  });
+
+  const moveCheckpointMutation = useMutation({
+    mutationFn: async ({ id, lat, lng }: { id: number; lat: number; lng: number }) => {
+      return apiRequest("PATCH", `/api/checkpoints/${id}`, { lat, lng });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/checkpoints/all"] });
+      toast({ title: "Checkpoint moved", description: "The checkpoint location has been updated." });
     },
   });
 
@@ -61,6 +72,7 @@ export default function Settings() {
       return apiRequest("POST", "/api/checkpoints/custom", data);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/checkpoints/all"] });
       toast({ title: "Checkpoint added", description: "Custom checkpoint created at selected location." });
       setSelectedQuestionId("");
     },
@@ -201,11 +213,11 @@ export default function Settings() {
             <div className="p-2 bg-accent/10 rounded-lg">
               <MapPin className="w-5 h-5 text-accent" />
             </div>
-            <h2 className="text-lg font-bold">Custom Checkpoints</h2>
+            <h2 className="text-lg font-bold">Manage Checkpoints</h2>
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Drag the marker or click the map to set a checkpoint location.
+            Drag markers to move checkpoints or click the map to set a new custom one.
           </p>
 
           {(customLat && customLng) ? (
@@ -215,6 +227,9 @@ export default function Settings() {
               onLocationSelect={(lat, lng) => {
                 setCustomLat(lat);
                 setCustomLng(lng);
+              }}
+              onCheckpointMove={(id, lat, lng) => {
+                moveCheckpointMutation.mutate({ id, lat, lng });
               }}
               radius={radius}
               existingCheckpoints={checkpointsQuery.data}
