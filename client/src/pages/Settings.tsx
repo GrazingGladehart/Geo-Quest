@@ -199,7 +199,7 @@ export default function Settings() {
               />
             </div>
 
-            <div className="pt-4 border-t border-purple-100 space-y-4">
+            <div className="pt-4 border-t border-purple-100 space-y-4 relative z-40">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label className="text-base font-bold flex items-center gap-2">
