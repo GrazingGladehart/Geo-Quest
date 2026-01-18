@@ -106,7 +106,7 @@ export default function Settings() {
           <h1 className="text-2xl font-bold font-display">Settings</h1>
         </div>
 
-        <Card className="p-6 space-y-6">
+        <Card className="p-6 space-y-6 bg-white dark:bg-card relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-primary/10 rounded-lg">
               <Clock className="w-5 h-5 text-primary" />
@@ -194,7 +194,7 @@ export default function Settings() {
           </Button>
         </Card>
 
-        <Card className="p-6 space-y-4">
+        <Card className="p-6 space-y-4 bg-white dark:bg-card relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-accent/10 rounded-lg">
               <MapPin className="w-5 h-5 text-accent" />
@@ -230,10 +230,10 @@ export default function Settings() {
               <SelectTrigger data-testid="select-question">
                 <SelectValue placeholder="Choose a question..." />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="max-h-[300px] overflow-y-auto">
                 {questionsQuery.data?.map((q) => (
                   <SelectItem key={q.id} value={String(q.id)}>
-                    {q.question.substring(0, 40)}...
+                    {q.question}
                   </SelectItem>
                 ))}
               </SelectContent>
