@@ -12,8 +12,10 @@ import { Link } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { Question } from "@shared/schema";
 
+import { MapSelector } from "@/components/MapSelector";
+
 export default function Settings() {
-  const { lat, lng } = useGeolocation();
+  const { lat: geoLat, lng: geoLng } = useGeolocation();
   const { toast } = useToast();
   
   const [timeLimit, setTimeLimit] = useState(30);
@@ -21,6 +23,15 @@ export default function Settings() {
   const [rovingCount, setRovingCount] = useState(2);
   const [radius, setRadius] = useState(500);
   const [selectedQuestionId, setSelectedQuestionId] = useState<string>("");
+  const [customLat, setCustomLat] = useState<number | null>(null);
+  const [customLng, setCustomLng] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (geoLat && geoLng && customLat === null) {
+      setCustomLat(geoLat);
+      setCustomLng(geoLng);
+    }
+  }, [geoLat, geoLng]);
 
   const settingsQuery = useQuery<{ timeLimit: number; checkpointCount: number; rovingCount: number; radius: number }>({
     queryKey: ["/api/settings"],
@@ -45,7 +56,7 @@ export default function Settings() {
       return apiRequest("POST", "/api/checkpoints/custom", data);
     },
     onSuccess: () => {
-      toast({ title: "Checkpoint added", description: "Custom checkpoint created at your location." });
+      toast({ title: "Checkpoint added", description: "Custom checkpoint created at selected location." });
       setSelectedQuestionId("");
     },
   });
@@ -64,8 +75,8 @@ export default function Settings() {
   };
 
   const handleAddCheckpoint = () => {
-    if (!lat || !lng) {
-      toast({ title: "Location required", description: "Please enable GPS to add a checkpoint.", variant: "destructive" });
+    if (!customLat || !customLng) {
+      toast({ title: "Location required", description: "Please select a location on the map.", variant: "destructive" });
       return;
     }
     if (!selectedQuestionId) {
@@ -73,8 +84,8 @@ export default function Settings() {
       return;
     }
     addCheckpointMutation.mutate({
-      lat,
-      lng,
+      lat: customLat,
+      lng: customLng,
       questionId: parseInt(selectedQuestionId),
     });
   };
@@ -188,18 +199,22 @@ export default function Settings() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Add a checkpoint at your current location with a science question.
+            Drag the marker or click the map to set a checkpoint location.
           </p>
 
-          {lat && lng ? (
-            <div className="bg-muted/50 rounded-lg p-3 text-sm">
-              <span className="font-mono text-xs">
-                Current: {lat.toFixed(5)}, {lng.toFixed(5)}
-              </span>
-            </div>
+          {(customLat && customLng) ? (
+            <MapSelector 
+              lat={customLat} 
+              lng={customLng} 
+              onLocationSelect={(lat, lng) => {
+                setCustomLat(lat);
+                setCustomLng(lng);
+              }}
+              radius={radius}
+            />
           ) : (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800">
-              GPS location not available
+            <div className="h-[300px] bg-muted flex items-center justify-center rounded-lg">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
           )}
 
@@ -221,7 +236,7 @@ export default function Settings() {
 
           <Button
             onClick={handleAddCheckpoint}
-            disabled={addCheckpointMutation.isPending || !lat || !lng}
+            disabled={addCheckpointMutation.isPending || !customLat || !customLng}
             variant="secondary"
             className="w-full"
             data-testid="button-add-checkpoint"
@@ -231,10 +246,11 @@ export default function Settings() {
             ) : (
               <Plus className="w-4 h-4 mr-2" />
             )}
-            Add Checkpoint Here
+            Add Checkpoint at Selection
           </Button>
         </Card>
       </div>
     </div>
   );
 }
+
