@@ -10,10 +10,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { getDistance } from "geolib";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader2, Trophy, MapPin, AlertCircle, Camera, Settings, Timer, Target } from "lucide-react";
+import { Loader2, Trophy, MapPin, AlertCircle, Camera, Settings, Timer, Target, Map as MapIcon, Leaf, Sparkles, Flame, Calendar } from "lucide-react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import type { Checkpoint } from "@shared/schema";
+import { NatureScavengerHunt } from "@/components/NatureScavengerHunt";
 
 export default function Game() {
   const { lat, lng, error: geoError, loading: geoLoading } = useGeolocation();
@@ -22,13 +23,17 @@ export default function Game() {
   
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([]);
   const [score, setScore] = useState(0);
-  const [gameActive, setGameActive] = useState(false);
+  const [gameMode, setGameMode] = useState<"menu" | "ar" | "nature">("menu");
   const [activeQuestion, setActiveQuestion] = useState<Checkpoint | null>(null);
-  const [showARView, setShowARView] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [gameOver, setGameOver] = useState(false);
 
   const settingsQuery = useQuery<{ timeLimit: number; checkpointCount: number; radius: number }>({
     queryKey: ["/api/settings"],
+  });
+
+  const statsQuery = useQuery({
+    queryKey: ["/api/stats"],
   });
 
   // Derived state: sorted and deduplicated checkpoints by distance
@@ -57,7 +62,7 @@ export default function Game() {
   }, [lat, lng, checkpoints]);
 
   // Start Game Handler
-  const handleStartGame = () => {
+  const handleStartMission = () => {
     if (lat && lng) {
       const count = settingsQuery.data?.checkpointCount ?? 5;
       const radius = settingsQuery.data?.radius ?? 500;
@@ -66,7 +71,7 @@ export default function Game() {
         {
           onSuccess: (data) => {
             setCheckpoints(data);
-            setGameActive(true);
+            setGameMode("ar");
             setScore(0);
             const minutes = settingsQuery.data?.timeLimit ?? 30;
             setTimeRemaining(minutes * 60);
@@ -76,11 +81,9 @@ export default function Game() {
     }
   };
 
-  const [gameOver, setGameOver] = useState(false);
-
   // Timer countdown effect
   useEffect(() => {
-    if (!gameActive || timeRemaining === null || gameOver) return;
+    if (gameMode !== "ar" || timeRemaining === null || gameOver) return;
 
     if (timeRemaining <= 0) {
       setGameOver(true);
@@ -92,35 +95,12 @@ export default function Game() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [gameActive, timeRemaining, gameOver]);
-
-  // Format time as MM:SS
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
+  }, [gameMode, timeRemaining, gameOver]);
 
   // Handle AR checkpoint tap
   const handleARCheckpointTap = (checkpoint: Checkpoint) => {
-    setShowARView(false);
     setActiveQuestion(checkpoint);
   };
-
-  // Watch for proximity triggers - REMOVED automatic popup
-  /* 
-  useEffect(() => {
-    if (!gameActive || !lat || !lng || activeQuestion) return;
-
-    // Find closest uncollected checkpoint
-    const closest = sortedCheckpoints.find(cp => !cp.collected);
-    
-    if (closest && closest.distance <= 20) {
-      // Trigger question!
-      setActiveQuestion(closest);
-    }
-  }, [lat, lng, sortedCheckpoints, gameActive, activeQuestion]);
-  */
 
   // Handle Answer Verification
   const handleVerify = async (answer: string): Promise<boolean> => {
@@ -137,7 +117,6 @@ export default function Game() {
         setCheckpoints(prev => prev.map(cp => 
           cp.id === activeQuestion.id ? { ...cp, collected: true } : cp
         ));
-        // After a small delay to show success in dialog, we'll close it
         return true;
       }
       return false;
@@ -146,19 +125,15 @@ export default function Game() {
     }
   };
 
-  // --- Render States ---
-
-  // 1. Loading Geolocation
   if (geoLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-b from-background to-blue-50">
-        <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
-        <h2 className="text-xl font-bold text-foreground/80 font-display">Acquiring Satellites...</h2>
+      <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-green-50">
+        <Loader2 className="w-12 h-12 text-green-600 animate-spin mb-4" />
+        <h2 className="text-xl font-bold text-green-800 font-display">Sensing the Forest...</h2>
       </div>
     );
   }
 
-  // 2. Geolocation Error
   if (geoError || !lat || !lng) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-red-50/50">
@@ -167,84 +142,121 @@ export default function Game() {
         </div>
         <h1 className="text-2xl font-bold text-foreground font-display mb-2">Location Required</h1>
         <p className="text-muted-foreground max-w-xs mx-auto">
-          We need your GPS coordinates to generate checkpoints around you. Please enable location access.
+          We need your GPS coordinates to guide your forest adventure. Please enable location access.
         </p>
       </div>
     );
   }
 
-  // 3. Game Not Started (Lobby)
-  if (!gameActive) {
-    return (
-      <div className="min-h-screen flex flex-col p-6 bg-gradient-to-br from-background via-purple-50 to-blue-50">
-        <div className="absolute top-4 right-4">
-          <Link href="/settings">
-            <Button variant="ghost" size="icon" data-testid="button-settings">
-              <Settings className="w-5 h-5" />
-            </Button>
-          </Link>
-        </div>
-        
-        <div className="flex-1 flex flex-col items-center justify-center max-w-md mx-auto w-full text-center">
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 relative"
-          >
-            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full animate-pulse" />
-            <img 
-              src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=400&h=400&fit=crop" 
-              alt="Science Exploration"
-              className="w-48 h-48 object-cover rounded-3xl shadow-2xl relative z-10 rotate-3 border-4 border-white"
-            />
-            <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-2xl shadow-lg z-20 rotate-[-6deg]">
-              <Trophy className="w-8 h-8 text-yellow-500" />
-            </div>
-          </motion.div>
-          
-          <h1 className="text-4xl md:text-5xl font-black font-display text-foreground mb-4 leading-tight">
-            Science <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Scavenger Hunt</span>
-          </h1>
-          
-          <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-            Explore your surroundings to find hidden energy points. Answer questions correctly to collect them!
-          </p>
+  if (gameMode === "menu") {
+    const stats = statsQuery.data as any;
+    const todayPoints = stats?.pointsHistory?.find((h: any) => h.date === new Date().toISOString().split('T')[0])?.points ?? 0;
 
-          <div className="flex flex-col items-center gap-2 mb-6 text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Timer className="w-4 h-4" />
-              <span className="text-sm">Time Limit: {settingsQuery.data?.timeLimit ?? 30} minutes</span>
+    return (
+      <div className="min-h-screen flex flex-col p-6 bg-gradient-to-b from-green-50 to-green-100">
+        <div className="max-w-md mx-auto w-full space-y-6">
+          <div className="flex justify-between items-start pt-4">
+            <div>
+              <h1 className="text-4xl font-black text-green-900 leading-none flex items-center gap-2">
+                Forest <Leaf className="text-green-600" />
+              </h1>
+              <p className="text-green-700 font-medium">Nature Explorer</p>
             </div>
-            <div className="flex items-center gap-2">
-              <Target className="w-4 h-4" />
-              <span className="text-sm">Checkpoints: {settingsQuery.data?.checkpointCount ?? 5}</span>
-            </div>
+            <Link href="/settings">
+              <Button variant="outline" size="icon" className="rounded-full bg-white/50 backdrop-blur-sm border-green-200">
+                <Settings className="w-5 h-5 text-green-700" />
+              </Button>
+            </Link>
           </div>
-          
-          <Button 
-            onClick={handleStartGame}
-            disabled={generateGameMutation.isPending}
-            className="w-full btn-game h-16 text-xl bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
-            data-testid="button-start-game"
-          >
-            {generateGameMutation.isPending ? (
-              <Loader2 className="w-6 h-6 animate-spin mr-2" />
-            ) : (
-              "Start Mission"
-            )}
-          </Button>
-        </div>
-        
-        <div className="text-center text-xs text-muted-foreground/50 mt-8 font-mono">
-          LOCATION: {lat.toFixed(4)}, {lng.toFixed(4)}
+
+          <Card className="p-6 border-none shadow-xl bg-white/80 backdrop-blur-md">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-green-600 uppercase tracking-wider">Today's Points</p>
+                <p className="text-3xl font-black text-green-900">{todayPoints}</p>
+              </div>
+              <div className="space-y-1 text-right">
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-wider">Current Streak</p>
+                <div className="flex items-center justify-end gap-1">
+                  <Flame className="w-5 h-5 text-orange-500 fill-orange-500" />
+                  <p className="text-3xl font-black text-orange-600">{stats?.currentStreak ?? 0}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-3 gap-2 border-t border-green-100 pt-6">
+              <div className="text-center">
+                <p className="text-[10px] font-bold text-gray-400 uppercase">Total</p>
+                <p className="text-lg font-black text-gray-700">{stats?.totalPoints ?? 0}</p>
+              </div>
+              <div className="text-center border-x border-green-50">
+                <p className="text-[10px] font-bold text-gray-400 uppercase">Best</p>
+                <p className="text-lg font-black text-gray-700">{stats?.longestStreak ?? 0}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] font-bold text-gray-400 uppercase">Hunts</p>
+                <p className="text-lg font-black text-gray-700">{stats?.huntsCompleted ?? 0}</p>
+              </div>
+            </div>
+          </Card>
+
+          <div className="space-y-4">
+            <Button 
+              onClick={handleStartMission}
+              className="w-full h-24 bg-green-600 hover:bg-green-700 text-white rounded-3xl shadow-lg shadow-green-200 group relative overflow-hidden transition-all active:scale-95"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-110 transition-transform">
+                <MapIcon size={64} />
+              </div>
+              <div className="flex flex-col items-start px-4">
+                <span className="text-2xl font-black flex items-center gap-2">
+                  Forest Quest <Sparkles size={20} className="animate-pulse" />
+                </span>
+                <span className="text-green-100 text-sm font-medium">Find hidden relics in the wild</span>
+              </div>
+            </Button>
+
+            <Button 
+              onClick={() => setGameMode("nature")}
+              className="w-full h-24 bg-white hover:bg-green-50 text-green-800 rounded-3xl shadow-lg shadow-green-100 border-2 border-green-100 group relative overflow-hidden transition-all active:scale-95"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform text-green-900">
+                <Camera size={64} />
+              </div>
+              <div className="flex flex-col items-start px-4">
+                <span className="text-2xl font-black flex items-center gap-2">
+                  Nature Finder <Leaf size={20} />
+                </span>
+                <span className="text-green-600 text-sm font-medium">Identify flora and fauna</span>
+              </div>
+            </Button>
+          </div>
+
+          <div className="text-center text-[10px] text-green-800/40 font-mono uppercase tracking-widest pt-4">
+            Stationed: {lat.toFixed(4)}, {lng.toFixed(4)}
+          </div>
         </div>
       </div>
     );
   }
 
-  // Active Game directly in AR
+  if (gameMode === "nature") {
+    return (
+      <div className="min-h-screen bg-green-50 p-6">
+        <div className="max-w-md mx-auto space-y-6">
+          <Button 
+            variant="ghost" 
+            onClick={() => setGameMode("menu")}
+            className="text-green-700 font-bold hover:bg-green-100 -ml-2"
+          >
+            ← Back to Base
+          </Button>
+          <NatureScavengerHunt onComplete={() => setGameMode("menu")} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black overflow-hidden">
       <ARView
@@ -254,7 +266,7 @@ export default function Game() {
         score={score}
         timeRemaining={timeRemaining}
         onCheckpointTap={handleARCheckpointTap}
-        onClose={() => setGameActive(false)}
+        onClose={() => setGameMode("menu")}
       />
 
       <QuestionDialog 
