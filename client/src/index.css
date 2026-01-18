@@ -10,33 +10,33 @@
   --font-body: 'Nunito', sans-serif;
 
   /* HSL Values */
-  --background: 210 50% 98%;    /* Soft blue-ish white */
-  --foreground: 222 47% 20%;    /* Deep navy text */
+  --background: 140 40% 98%;    /* Very soft green white */
+  --foreground: 140 47% 10%;    /* Deep forest green text */
   
-  /* Vibrant Primary: Electric Blue/Purple */
-  --primary: 250 85% 60%;
-  --primary-foreground: 0 0% 100%;
+  /* Vibrant Primary: Lush Forest Green */
+  --primary: 142 76% 36%;
+  --primary-foreground: 140 40% 98%;
   
-  /* Secondary: Fun Yellow/Orange */
-  --secondary: 45 100% 55%;
-  --secondary-foreground: 30 50% 10%;
+  /* Secondary: Soft Sage */
+  --secondary: 140 30% 92%;
+  --secondary-foreground: 140 50% 10%;
   
-  /* Accent: Hot Pink */
-  --accent: 330 85% 60%;
+  /* Accent: Earthy Brown/Orange */
+  --accent: 35 60% 50%;
   --accent-foreground: 0 0% 100%;
   
-  /* Success: Lush Green */
-  --success: 150 70% 45%;
+  /* Success: Bright Lime */
+  --success: 120 70% 45%;
   
-  --muted: 210 20% 90%;
-  --muted-foreground: 215 20% 40%;
+  --muted: 140 20% 94%;
+  --muted-foreground: 140 15% 45%;
   
-  --card: 0 0% 100%;
-  --card-foreground: 222 47% 20%;
+  --card: 140 40% 100%;
+  --card-foreground: 140 47% 10%;
   
-  --border: 214 32% 90%;
-  --input: 214 32% 90%;
-  --ring: 250 85% 60%;
+  --border: 140 32% 92%;
+  --input: 140 32% 92%;
+  --ring: 142 76% 36%;
   
   --radius: 1rem;
 }

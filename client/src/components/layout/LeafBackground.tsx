@@ -6,20 +6,21 @@ const LeafIcon = ({ delay, x, y, rotate }: { delay: number; x: string; y: string
     initial={{ opacity: 0, scale: 0 }}
     animate={{ 
       opacity: [0.3, 0.5, 0.3],
-      scale: [1, 1.1, 1],
-      rotate: [rotate, rotate + 10, rotate],
+      scale: [1, 1.15, 1],
+      rotate: [rotate, rotate + 15, rotate],
+      x: ["0%", "1%", "0%"],
       y: ["0%", "2%", "0%"]
     }}
     transition={{ 
-      duration: 5, 
+      duration: 7, 
       repeat: Infinity, 
       delay,
       ease: "easeInOut"
     }}
-    className="absolute text-green-500/40 pointer-events-none"
+    className="absolute text-green-600/30 pointer-events-none"
     style={{ left: x, top: y }}
   >
-    <Leaf size={120} style={{ transform: `rotate(${rotate}deg)` }} />
+    <Leaf size={140} style={{ transform: `rotate(${rotate}deg)` }} />
   </motion.div>
 );
 
