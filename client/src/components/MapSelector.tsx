@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, LayersControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useState, useEffect } from 'react';
@@ -25,6 +25,10 @@ interface MapSelectorProps {
 
 function LocationMarker({ lat, lng, onLocationSelect }: { lat: number; lng: number; onLocationSelect: (lat: number, lng: number) => void }) {
   const [position, setPosition] = useState<L.LatLng>(L.latLng(lat, lng));
+
+  useEffect(() => {
+    setPosition(L.latLng(lat, lng));
+  }, [lat, lng]);
 
   useMapEvents({
     click(e) {
@@ -58,10 +62,20 @@ export function MapSelector({ lat, lng, onLocationSelect, radius }: MapSelectorP
         scrollWheelZoom={false}
         className="h-full w-full"
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="Street Map">
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Topographical">
+            <TileLayer
+              attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors'
+              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+        </LayersControl>
         <LocationMarker lat={lat} lng={lng} onLocationSelect={onLocationSelect} />
       </MapContainer>
     </div>
