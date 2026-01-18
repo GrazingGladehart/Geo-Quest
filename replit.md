@@ -34,6 +34,7 @@ Preferred communication style: Simple, everyday language.
   - `questions`: Trivia questions with answer options and point values
   - `custom_checkpoints`: Admin-placed checkpoints at specific GPS coordinates
   - `settings`: Game configuration (time limits)
+  - `user_stats`: Player progress tracking (points, streaks, activity history)
 
 ### Key Design Decisions
 
@@ -50,6 +51,8 @@ Preferred communication style: Simple, everyday language.
 - `POST /api/settings`: Update game settings
 - `GET /api/questions`: List all trivia questions
 - `POST /api/checkpoints/custom`: Add custom checkpoint at specific location
+- `GET /api/stats`: Get user progress stats (points, streaks, activity history)
+- `POST /api/stats/complete-hunt`: Mark a hunt as completed (updates streak, freezes, activity dates)
 
 ## External Dependencies
 
